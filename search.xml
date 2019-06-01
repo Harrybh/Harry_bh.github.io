@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2Fpost%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[$a^b$ 123#include&lt;bits/stdc++.h&gt;using namespace std;int main()&#123;return 0;&#125;]]></content>
+    <title><![CDATA[「学习笔记」李超线段树]]></title>
+    <url>%2Fpost%2F%E3%80%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%8D%E6%9D%8E%E8%B6%85%E7%BA%BF%E6%AE%B5%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[「Heoi2013」 Segment有一个二维平面，你需要支持两种操作，插入一条线段，查询一条直线 $x=k$ 与其相交的最上面的一条线段。在学习之前离线做法可以用 $cdq$ 搞定，在线的话用平衡树也可以实现，李超树的做法相较于这两种要巧妙一些，核心的思想在于标记永久化维护覆盖区间中点的最高的线段。 考虑当前有一个线段树上的区间，要在这个区间里插入一条线段并维护答案，不妨分以下几类讨论： 如果当前这个区间还没有线段或者新加入的线段完全覆盖原来的线段，那么新加入的线段一定替换原来的线段 如果当前新加入的线段被原来的线段完全覆盖，那么这条新加入的线段一定不会再有用了。 将新加入的线段和原来的线段求交，将交所在的那半边较劣的线段下放到对应的儿子，更新区间中点的最高的线段。 此时维护的相当于是标记永久化的若干个线段，求答案就是将 $k$ 对应路径上的标记取最优线段，复杂度瓶颈所在的第三种情况每次都只会走一个儿子下放，所以从插入一条线段的复杂度是 $O(logn) $，由于要区间修改要在 $logn$ 个节点上插入线段，所以总复杂度 $O(nlogn)$ 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667#include&lt;bits/stdc++.h&gt;using namespace std;const int maxn=5e4+10;const double eps=1e-8;struct segment&#123;double k,b;int id;&#125;;segment s[maxn&lt;&lt;2];int hav[maxn&lt;&lt;2];void pushdown(int rt,int l,int r,segment now)&#123; if(!hav[rt])&#123;s[rt]=now;hav[rt]=1;return;&#125; double l1=now.k*l+now.b,r1=now.k*r+now.b; double l2=s[rt].k*l+s[rt].b,r2=s[rt].k*r+s[rt].b; if(l1&lt;=l2&amp;&amp;r1&lt;=r2)return ; if(l1&gt;=l2&amp;&amp;r1&gt;=r2)&#123;s[rt]=now;return;&#125; int mid=l+r&gt;&gt;1;double pos=(now.b-s[rt].b)/(s[rt].k-now.k); if(pos&lt;=mid)pushdown(rt&lt;&lt;1,l,mid,r1&gt;r2?s[rt]:now); else pushdown(rt&lt;&lt;1|1,mid+1,r,l1&gt;l2?s[rt]:now); if((l1&gt;l2&amp;&amp;pos&gt;=mid)||(r1&gt;r2&amp;&amp;pos&lt;mid))s[rt]=now;&#125;void update(int rt,int l,int r,int L,int R,segment now)&#123; if(L&lt;=l&amp;&amp;r&lt;=R)&#123;pushdown(rt,l,r,now);return;&#125; int mid=l+r&gt;&gt;1; if(L&lt;=mid)update(rt&lt;&lt;1,l,mid,L,R,now); if(R&gt;mid)update(rt&lt;&lt;1|1,mid+1,r,L,R,now);&#125;segment query(int rt,int l,int r,int pos)&#123; if(l==r)return hav[rt]?s[rt]:(segment)&#123;0,0,0&#125;; int mid=l+r&gt;&gt;1;segment now; if(pos&lt;=mid)now=query(rt&lt;&lt;1,l,mid,pos); else now=query(rt&lt;&lt;1|1,mid+1,r,pos); if(!hav[rt])return now; double y1=pos*now.k+now.b,y2=s[rt].k*pos+s[rt].b; if(!now.id||(y1&lt;y2)||(fabs(y1-y2)&lt;eps&amp;&amp;s[rt].id&lt;now.id))now=s[rt]; return now;&#125;int n;int lim=39989;int lastans=0,tot=0;int main()&#123; scanf("%d",&amp;n); while(n--) &#123; int op; scanf("%d",&amp;op); if(op==0) &#123; int pos;scanf("%d",&amp;pos); pos=(pos+lastans-1)%lim+1; segment ans=query(1,1,lim,pos); printf("%d\n",lastans=ans.id); &#125; else &#123; int X0,X1,Y0,Y1; scanf("%d%d%d%d",&amp;X0,&amp;Y0,&amp;X1,&amp;Y1); X0=(X0+lastans-1)%lim+1,X1=(X1+lastans-1)%lim+1; Y0=(Y0+lastans-1)%(int)(1e9)+1,Y1=(Y1+lastans-1)%(int)(1e9)+1; if(X0&gt;X1)swap(X0,X1),swap(Y0,Y1); if(X0==X1)&#123;update(1,1,lim,X0,X1,(segment)&#123;0.0,1.0*max(Y0,Y1),++tot&#125;);continue;&#125; double k=1.0*(Y1-Y0)/(X1-X0),b=1.0*Y1-k*X1; update(1,1,lim,X0,X1,(segment)&#123;k,b,++tot&#125;); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>线段树</tag>
+      </tags>
   </entry>
 </search>
