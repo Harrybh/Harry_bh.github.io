@@ -96,16 +96,18 @@
 
 
 
-  <meta name="description" content="这世间，唯有青春与梦想不可辜负">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Harry_bh&#39;s blog">
-<meta property="og:url" content="https://harrybh.github.io/tags/线段树/index.html">
+  <meta name="description" content="对于每一个点我们都可以列出这样的方程  \sum_{j=1}^n(x_j-a_{ij})^2=R上下差为  \sum_{j=1}^n(x_j-a_{ij})^2-(x_j-a_{i+1j})^2=0 \sum_{j=1}^na_{ij}^2-a_{i+1j}^2-2a_{ij}x_j+2a_{i+1j}x_j=0所以每一项的系数为 $-x_j(2a_{ij}-2a_{i+1j})$ 常数项为 $\">
+<meta name="keywords" content="高斯消元">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「JSOI2008」球形空间产生器">
+<meta property="og:url" content="https://harrybh.github.io/post/「JSOI2008」球形空间产生器/index.html">
 <meta property="og:site_name" content="Harry_bh&#39;s blog">
-<meta property="og:description" content="这世间，唯有青春与梦想不可辜负">
+<meta property="og:description" content="对于每一个点我们都可以列出这样的方程  \sum_{j=1}^n(x_j-a_{ij})^2=R上下差为  \sum_{j=1}^n(x_j-a_{ij})^2-(x_j-a_{i+1j})^2=0 \sum_{j=1}^na_{ij}^2-a_{i+1j}^2-2a_{ij}x_j+2a_{i+1j}x_j=0所以每一项的系数为 $-x_j(2a_{ij}-2a_{i+1j})$ 常数项为 $\">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-01T09:25:54.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Harry_bh&#39;s blog">
-<meta name="twitter:description" content="这世间，唯有青春与梦想不可辜负">
+<meta name="twitter:title" content="「JSOI2008」球形空间产生器">
+<meta name="twitter:description" content="对于每一个点我们都可以列出这样的方程  \sum_{j=1}^n(x_j-a_{ij})^2=R上下差为  \sum_{j=1}^n(x_j-a_{ij})^2-(x_j-a_{i+1j})^2=0 \sum_{j=1}^na_{ij}^2-a_{i+1j}^2-2a_{ij}x_j+2a_{i+1j}x_j=0所以每一项的系数为 $-x_j(2a_{ij}-2a_{i+1j})$ 常数项为 $\">
 
 
 
@@ -113,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://harrybh.github.io/tags/线段树/">
+  <link rel="canonical" href="https://harrybh.github.io/post/「JSOI2008」球形空间产生器/">
 
 
 
@@ -123,7 +125,7 @@
   };
 </script>
 
-  <title>标签: 线段树 | Harry_bh's blog</title>
+  <title>「JSOI2008」球形空间产生器 | Harry_bh's blog</title>
   
 
 
@@ -171,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -226,7 +228,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -290,25 +292,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -354,83 +337,200 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>线段树<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://harrybh.github.io/post/「JSOI2008」球形空间产生器/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Harry_bh">
+      <meta itemprop="description" content="这世间，唯有青春与梦想不可辜负">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Harry_bh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/post/「SDOI2016」游戏/" itemprop="url">
-            
-              <span itemprop="name">「SDOI2016」游戏</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">「JSOI2008」球形空间产生器
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-01T17:20:34+08:00" content="2019-06-01">
-          06-01
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-01 17:22:44 / 修改时间：17:25:54" itemprop="dateCreated datePublished" datetime="2019-06-01T17:22:44+08:00">2019-06-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂项/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/post/「学习笔记」李超线段树/" itemprop="url">
-            
-              <span itemprop="name">「学习笔记」李超线段树</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-01T10:55:51+08:00" content="2019-06-01">
-          06-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>对于每一个点我们都可以列出这样的方程</p>
+<script type="math/tex; mode=display">
+\sum_{j=1}^n(x_j-a_{ij})^2=R</script><p>上下差为</p>
+<script type="math/tex; mode=display">
+\sum_{j=1}^n(x_j-a_{ij})^2-(x_j-a_{i+1j})^2=0</script><script type="math/tex; mode=display">
+\sum_{j=1}^na_{ij}^2-a_{i+1j}^2-2a_{ij}x_j+2a_{i+1j}x_j=0</script><p>所以每一项的系数为 $-x_j(2a_{ij}-2a_{i+1j})$</p>
+<p>常数项为 $\sum_{j=1}^n-a_{ij}^2+a_{i+1j}^2$</p>
+<p>共 $n$ 个未知数，$n$  个方程高斯消元即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">10</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">double</span> a[maxn][maxn];</span><br><span class="line"><span class="keyword">double</span> p[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gauss</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> now=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)<span class="keyword">if</span>(<span class="built_in">fabs</span>(a[j][i])&gt;<span class="built_in">fabs</span>(a[now][i]))now=j;</span><br><span class="line">        <span class="keyword">if</span>(now!=i)<span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=n+<span class="number">1</span>;j++)swap(a[now][j],a[i][j]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k=i+<span class="number">1</span>;k&lt;=n+<span class="number">1</span>;k++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">double</span> t=a[k][i]/a[i][i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=n+<span class="number">1</span>;j++)a[k][j]-=a[i][j]*t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;=<span class="number">1</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">        a[i][n+<span class="number">1</span>]-=a[j][n+<span class="number">1</span>]*a[i][j];</span><br><span class="line">        a[i][n+<span class="number">1</span>]/=a[i][i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n+<span class="number">1</span>;i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)<span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;p[i][j]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">double</span> tot=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            a[i][j]+=<span class="number">2</span>*p[i][j]<span class="number">-2</span>*p[i+<span class="number">1</span>][j];</span><br><span class="line">            tot+=p[i][j]*p[i][j]-p[i+<span class="number">1</span>][j]*p[i+<span class="number">1</span>][j];</span><br><span class="line">        &#125;</span><br><span class="line">        a[i][n+<span class="number">1</span>]=tot;</span><br><span class="line">    &#125;</span><br><span class="line">    gauss();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">printf</span>(<span class="string">"%.3lf "</span>,a[i][n+<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高斯消元/" rel="tag"># 高斯消元</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/「SDOI2016」游戏/" rel="next" title="「SDOI2016」游戏">
+                <i class="fa fa-chevron-left"></i> 「SDOI2016」游戏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -691,6 +791,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -706,6 +810,8 @@
 
   
 
+
+  
 
 
   
@@ -1043,6 +1149,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
