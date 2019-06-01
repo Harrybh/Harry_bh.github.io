@@ -438,7 +438,7 @@
             
                 <span class="post-meta-item-text">评论数：</span>
                 <a href="/post/「SDOI2016」游戏/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/post/「SDOI2016」游戏/" itemprop="commentCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/post/「SDOI2016」游戏/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -548,9 +548,6 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
     </div>
 
   
@@ -834,29 +831,36 @@
   
 
   
-
-
   
-    
-   
-   
-   
-   
-   <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-   <script src="https://jjeejj.github.io/js/gitment.js"></script>   
 
-       <script type="text/javascript">
-           var gitment = new Gitment({
-              id: window.location.pathname, 
-               owner: '',
-               repo: '',
-               oauth: {
-                   client_id: '',
-                   client_secret: '',
-               }});
-           gitment.render('gitment-container');
-       </script>
-   
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Wsqi03pgn8IAmuT2vylBCls3-gzGzoHsz',
+    appKey: 'q0kSgV6jcxyhMKJzD3OAN9ob',
+    placeholder: 'o(∩_∩)o',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
 
 
   
