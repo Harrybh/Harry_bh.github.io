@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="定义：半平面： 顾名思义，就是平面的一半。一条直线会把平面分成两部分，就是两个半平面。对于半平面，我们可以用直线方程式如：$ax + by &amp;gt;= c$ 表示，更常用的是用直线表示。  半平面交： 顾名思义，就是多个半平面求交集。其结果可能是一个凸多边形、无穷平面、直线、线段、点等。  多边形的核： 如果多边形中存在一个区域使得在区域中可以看到多边形中任意位置（反之亦然），则这个区域就是多边形">
+<meta name="keywords" content="半平面交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="半平面交">
+<meta property="og:url" content="https://harrybh.github.io/post/半平面交/index.html">
+<meta property="og:site_name" content="Harry_bh&#39;s blog">
+<meta property="og:description" content="定义：半平面： 顾名思义，就是平面的一半。一条直线会把平面分成两部分，就是两个半平面。对于半平面，我们可以用直线方程式如：$ax + by &amp;gt;= c$ 表示，更常用的是用直线表示。  半平面交： 顾名思义，就是多个半平面求交集。其结果可能是一个凸多边形、无穷平面、直线、线段、点等。  多边形的核： 如果多边形中存在一个区域使得在区域中可以看到多边形中任意位置（反之亦然），则这个区域就是多边形">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/11/22/5bf583c5e4d38.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/22/5bf58626af0f4.png">
+<meta property="og:image" content="http://static.zybuluo.com/Kingofwater/kf8ptwdwstpvg088pt7z9gee/geogebra-export.png">
+<meta property="og:image" content="http://static.zybuluo.com/Kingofwater/lpk4v6bxppyw2v5i07rvcx9w/geogebra-export%20%281%29.png">
+<meta property="og:updated_time" content="2019-06-04T14:59:52.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="半平面交">
+<meta name="twitter:description" content="定义：半平面： 顾名思义，就是平面的一半。一条直线会把平面分成两部分，就是两个半平面。对于半平面，我们可以用直线方程式如：$ax + by &amp;gt;= c$ 表示，更常用的是用直线表示。  半平面交： 顾名思义，就是多个半平面求交集。其结果可能是一个凸多边形、无穷平面、直线、线段、点等。  多边形的核： 如果多边形中存在一个区域使得在区域中可以看到多边形中任意位置（反之亦然），则这个区域就是多边形">
+<meta name="twitter:image" content="https://i.loli.net/2018/11/22/5bf583c5e4d38.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://harrybh.github.io/post/半平面交/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>半平面交 | Harry_bh's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Harry_bh's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://harrybh.github.io/post/半平面交/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Harry_bh">
+      <meta itemprop="description" content="这世间，唯有青春与梦想不可辜负">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Harry_bh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">半平面交
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-29 09:12:20" itemprop="dateCreated datePublished" datetime="2018-11-29T09:12:20+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-04 22:59:52" itemprop="dateModified" datetime="2019-06-04T22:59:52+08:00">2019-06-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算几何/" itemprop="url" rel="index"><span itemprop="name">计算几何</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/post/半平面交/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/post/半平面交/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><h3 id="半平面："><a href="#半平面：" class="headerlink" title="半平面："></a>半平面：</h3><blockquote>
+<p>顾名思义，就是平面的一半。一条直线会把平面分成两部分，就是两个半平面。对于半平面，我们可以用直线方程式如：$ax + by &gt;= c$ 表示，更常用的是用直线表示。</p>
+</blockquote>
+<h3 id="半平面交："><a href="#半平面交：" class="headerlink" title="半平面交："></a>半平面交：</h3><blockquote>
+<p>顾名思义，就是多个半平面求交集。其结果可能是一个凸多边形、无穷平面、直线、线段、点等。</p>
+</blockquote>
+<h3 id="多边形的核："><a href="#多边形的核：" class="headerlink" title="多边形的核："></a>多边形的核：</h3><blockquote>
+<p>如果多边形中存在一个区域使得在区域中可以看到多边形中任意位置（反之亦然），则这个区域就是多边形的核。可以用半平面交来求解。</p>
+</blockquote>
+<h3 id="极点："><a href="#极点：" class="headerlink" title="极点："></a>极点：</h3><blockquote>
+<p>点 $(x,y)$ 与原点的连线与 $x$ 轴的夹角，其范围为 [0,360].</p>
+</blockquote>
+<p><strong>为了方便求解我们假设所有的直线的左侧为我们所需要的半平面。</strong></p>
+<p>一般来说求解半平面交有两种方法</p>
+<p>① 分治法 $O(n\log_2 n)$</p>
+<p>② 增量法 $O(n\log_2 n)$</p>
+<p>但是在这里由于分治法常数较大，代码实现较第二种复杂，所以我们着重介绍第二种方法。</p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>① 将所有直线极角排序,角度相同的保留下需要的一个</p>
+<p>② 用一个双端队列存储当前半平面交,每次通过判断队首与队尾第一个交点是否满足当前直线来更新</p>
+<p>③ 先用队尾判定队首交点是否合法,再用队首判断队尾交点是否合法</p>
+<p>④ 最后求出来的半平面交是一个凸多边形</p>
+<h3 id="极角排序"><a href="#极角排序" class="headerlink" title="极角排序"></a>极角排序</h3><p>如下图排序后</p>
+<p>$(a,b)，(c,d)，(e,f)，(g,h)，(i,j)$ </p>
+<p>所以我们可以更方便的逆时针依次构造，半平面交</p>
+<p>由于我们规定了所有的直线的左侧为我们所需要的半平面</p>
+<p>所以极角相同的直线，我们保留最靠右的。</p>
+<p><img src="https://i.loli.net/2018/11/22/5bf583c5e4d38.png" alt="png"></p>
+<h3 id="构造半平面交"><a href="#构造半平面交" class="headerlink" title="构造半平面交"></a>构造半平面交</h3><p>我们可以依照以下流程来构造一个半平面交，并且构造完成的半平面交有多种情况</p>
+<blockquote>
+<p>① 直线、线段、点不合法</p>
+<p>② 凸多边形，无穷平面（可以增加4个用于限制的半平面，使得平面变得有限）</p>
+</blockquote>
+<p>我们维护两个双端队列</p>
+<p>一个储存当前有用的直线（半平面），一个储存半平面交的点。</p>
+<p>我们依次加入每一条直线（半平面），在加入之前先将之前保存了的点，但不是最终半平面交中的点弹出队列</p>
+<p>如下图我们首先让 直线$AB$ 进入队列，再加入直线$FG$，并且求出 $AB$ 与 $FG$ 的交点 $H$，并且把它加入第二个队列里</p>
+<p>那么加入 直线$CD$ 时我们会发现， $H$ 这个点在半平面之外，那么就将它弹出队列，同时将这条边也弹出队列。</p>
+<p>所以只要一个点在加入的这条直线的右边我们就将它弹出。</p>
+<p><img src="https://i.loli.net/2018/11/22/5bf58626af0f4.png" alt="png"></p>
+<p>为什么我们要使用双端队列？</p>
+<p>可以明显的发现，双端队列的中的点是逆时针排列的</p>
+<p>且满足一定的单调性（这个需要自己画图思考，或者配合以下图片思考）</p>
+<blockquote>
+<p>当前加入一条直线，存放点的队列中相邻的两个元素，所对应的直线的极角满足 $\angle a&lt;=\angle b$（$a$ 对应点的在队列中的位置位置小于 $b$） </p>
+<p>那么也就是说，这条直线要么使队首的点处于半平面外，要么使队尾的点处于半平面外</p>
+</blockquote>
+<p>但是因为构造半平面交是环形的构造，如下图</p>
+<p>我们顺次处理 $IJ$ ，$AB$ ，$CD$ ，$EF$，$GH$ 所以当处理到 $GH$ 的时候会发现，$K$ 点是需要弹出的点但是，$K$ 因为在处理 $AB$ 时就已经加入了队列而且处在队列的首部，所以我们如果要弹出 $K$ 就必须要维护一个双端队列来支持我们的弹出队首的操作。</p>
+<p><img src="http://static.zybuluo.com/Kingofwater/kf8ptwdwstpvg088pt7z9gee/geogebra-export.png" alt="png"></p>
+<h3 id="删去不合法的点"><a href="#删去不合法的点" class="headerlink" title="删去不合法的点"></a>删去不合法的点</h3><p>最后队首和队尾都会剩下一些点，它们在半平面交之外</p>
+<p>如下图，由于半平面交构造时实际是一个上凸壳和下凸壳，然后是环形的，所以说，会发现某些情况下，有些点多余了</p>
+<p>我们需要用队首的直线，判断一下多余的队尾队首的点。</p>
+<p><img src="http://static.zybuluo.com/Kingofwater/lpk4v6bxppyw2v5i07rvcx9w/geogebra-export%20%281%29.png" alt="png"></p>
+<p>POJ2451模板题，求半平面交面积</p>
+<h2 id="AC代码，有注释"><a href="#AC代码，有注释" class="headerlink" title="AC代码，有注释"></a>AC代码，有注释</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps=<span class="number">1e-6</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> Pi=<span class="built_in">acos</span>(<span class="number">-1.00</span>);</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">dcmp</span><span class="params">(<span class="keyword">double</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x&gt;eps)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> x&lt;-eps?<span class="number">-1</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Vector</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">double</span> x,y;</span><br><span class="line">	Vector(<span class="keyword">double</span> X=<span class="number">0</span>,<span class="keyword">double</span> Y=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		x=X,y=Y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> Vector &amp;b)<span class="keyword">const</span> </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> dcmp(x-b.x)==<span class="number">0</span>&amp;&amp;dcmp(y-b.y)==<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">double</span> <span class="title">angle</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">atan2</span>(y,x);<span class="comment">//求出极角</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> Vector Point;</span><br><span class="line">Vector <span class="keyword">operator</span> + (Vector a,Vector b)&#123;<span class="keyword">return</span> Vector(a.x+b.x,a.y+b.y);&#125;</span><br><span class="line">Vector <span class="keyword">operator</span> - (Vector a,Vector b)&#123;<span class="keyword">return</span> Vector(a.x-b.x,a.y-b.y);&#125;</span><br><span class="line">Vector <span class="keyword">operator</span> * (Vector a,<span class="keyword">double</span> b)&#123;<span class="keyword">return</span> Vector(a.x*b,a.y*b);&#125;</span><br><span class="line">Vector <span class="keyword">operator</span> / (Vector a,<span class="keyword">double</span> b)&#123;<span class="keyword">return</span> Vector(a.x/b,a.y/b);&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Line</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	Point s,t;</span><br><span class="line">	<span class="keyword">double</span> ang;</span><br><span class="line">	Line(Point X=Vector(),Point Y=Vector())</span><br><span class="line">	&#123;</span><br><span class="line">		s=X,t=Y,ang=(Y-X).angle();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> Line Segment;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">dot</span><span class="params">(Vector a,Vector b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.x*b.x+a.y*b.y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">cross</span><span class="params">(Vector a,Vector b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.x*b.y-a.y*b.x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_parallel</span><span class="params">(Line a,Line b)</span><span class="comment">//判断a,b直线是否平行</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> dcmp(cross(a.t-a.s,b.t-b.s))==<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">Point <span class="title">intersection</span><span class="params">(Line a,Line b)</span><span class="comment">//求出a,b的交点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.s+(a.t-a.s)*(cross(b.t-b.s,a.s-b.s)/cross(a.t-a.s,b.t-b.s));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">area</span><span class="params">(Point *p,<span class="keyword">int</span> n)</span><span class="comment">//求出多边形的面积</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> res=<span class="number">0</span>;</span><br><span class="line">	p[n+<span class="number">1</span>]=p[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)res+=cross(p[i],p[i+<span class="number">1</span>]);</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">fabs</span>(res/<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Line &amp;a,<span class="keyword">const</span> Line &amp;b)<span class="comment">//极角排序，如果极角相同则，选择最靠左的直线</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">double</span> r=a.ang-b.ang;</span><br><span class="line">	<span class="keyword">if</span>(dcmp(r)!=<span class="number">0</span>)<span class="keyword">return</span> dcmp(r)==<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">return</span> dcmp(cross(a.t-a.s,b.t-a.s))==<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">OnRight</span><span class="params">(Line a,Point b)</span><span class="comment">//检查b是否在a直线的右边</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> dcmp(cross(a.t-a.s,b-a.s))&lt;<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SI</span><span class="params">(Line *l,<span class="keyword">int</span> n,Point *s,<span class="keyword">int</span> &amp;m)</span><span class="comment">//增量法求半平面交</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> Line que[maxn];</span><br><span class="line">	<span class="keyword">static</span> Point que2[maxn];<span class="comment">//两个双端队列</span></span><br><span class="line">	<span class="keyword">int</span> head=<span class="number">0</span>,tail=<span class="number">0</span>;</span><br><span class="line">	sort(l+<span class="number">1</span>,l+<span class="number">1</span>+n);</span><br><span class="line">	que[<span class="number">0</span>]=l[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">	<span class="keyword">if</span>(dcmp(l[i].ang-l[i<span class="number">-1</span>].ang)!=<span class="number">0</span>)<span class="comment">//极角相等的直线，取一个</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(head&lt;tail&amp;&amp;(is_parallel(que[head],que[head+<span class="number">1</span>])||is_parallel(que[tail],que[tail<span class="number">-1</span>])))<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//如果两个直线共线，但是极角不同，则没有半平面交</span></span><br><span class="line">		<span class="keyword">while</span>(head&lt;tail&amp;&amp;OnRight(l[i],que2[tail<span class="number">-1</span>]))tail--;<span class="comment">//如果在直线右边，删除点</span></span><br><span class="line">		<span class="keyword">while</span>(head&lt;tail&amp;&amp;OnRight(l[i],que2[head]))head++;</span><br><span class="line">		que[++tail]=l[i];</span><br><span class="line">		<span class="keyword">if</span>(head&lt;tail)que2[tail<span class="number">-1</span>]=intersection(que[tail],que[tail<span class="number">-1</span>]);<span class="comment">//加入新点</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(head&lt;tail&amp;&amp;OnRight(que[head],que2[tail<span class="number">-1</span>]))tail--;<span class="comment">//删去多余点</span></span><br><span class="line">	<span class="keyword">while</span>(head&lt;tail&amp;&amp;OnRight(que[tail],que2[head]))head++;</span><br><span class="line">	<span class="keyword">if</span>(tail-head&lt;=<span class="number">1</span>)<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//只有一个点或零个点，没有半平面交</span></span><br><span class="line">	que2[tail]=intersection(que[head],que[tail]);<span class="comment">//加入最后一条边，和第一条边的交点</span></span><br><span class="line">	m=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head;i&lt;=tail;i++)s[++m]=que2[i];</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> lim=<span class="number">10000</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">Point p[maxn];</span><br><span class="line">Line l[maxn];</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Point a=Point(<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//加入最大限制，防止半平面交无限大</span></span><br><span class="line">	Point b=Point(lim,<span class="number">0</span>);</span><br><span class="line">	Point c=Point(lim,lim);</span><br><span class="line">	Point d=Point(<span class="number">0</span>,lim);</span><br><span class="line">	l[++n]=Line(a,b);</span><br><span class="line">	l[++n]=Line(b,c);</span><br><span class="line">	l[++n]=Line(c,d);</span><br><span class="line">	l[++n]=Line(d,a);</span><br><span class="line">	<span class="keyword">if</span>(!SI(l,n,p,m))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> area(p,m);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Point a,b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf%lf%lf%lf"</span>,&amp;a.x,&amp;a.y,&amp;b.x,&amp;b.y);</span><br><span class="line">		l[i]=Line(a,b);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%.1f\n"</span>,solve());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/半平面交/" rel="tag"># 半平面交</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/凸包/" rel="next" title="凸包">
+                <i class="fa fa-chevron-left"></i> 凸包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/Treap/" rel="prev" title="Treap">
+                Treap <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Harry_bh">
+            
+              <p class="site-author-name" itemprop="name">Harry_bh</p>
+              <div class="site-description motion-element" itemprop="description">这世间，唯有青春与梦想不可辜负</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/harrybh" title="GitHub &rarr; https://github.com/harrybh" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1256072851@qq.com" title="E-Mail &rarr; mailto:1256072851@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义："><span class="nav-number">1.</span> <span class="nav-text">定义：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#半平面："><span class="nav-number">1.1.</span> <span class="nav-text">半平面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#半平面交："><span class="nav-number">1.2.</span> <span class="nav-text">半平面交：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多边形的核："><span class="nav-number">1.3.</span> <span class="nav-text">多边形的核：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#极点："><span class="nav-number">1.4.</span> <span class="nav-text">极点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法流程"><span class="nav-number">2.</span> <span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#极角排序"><span class="nav-number">2.1.</span> <span class="nav-text">极角排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造半平面交"><span class="nav-number">2.2.</span> <span class="nav-text">构造半平面交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删去不合法的点"><span class="nav-number">2.3.</span> <span class="nav-text">删去不合法的点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AC代码，有注释"><span class="nav-number">3.</span> <span class="nav-text">AC代码，有注释</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Harry_bh</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="50" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Wsqi03pgn8IAmuT2vylBCls3-gzGzoHsz',
+    appKey: 'q0kSgV6jcxyhMKJzD3OAN9ob',
+    placeholder: 'o(∩_∩)o',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
