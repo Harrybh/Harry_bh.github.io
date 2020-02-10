@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Link-Cut-Tree]]></title>
+    <url>%2Fpost%2FLink-Cut-Tree%2F</url>
+    <content type="text"><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[后缀自动机]]></title>
     <url>%2Fpost%2F%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%2F</url>
     <content type="text"><![CDATA[我太懒了，丢个链接就跑 https://www.luogu.org/problemnew/solution/P3804 模板code: 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include&lt;bits/stdc++.h&gt;using namespace std;const int maxn=2e6+10;long long ans=0;struct suffix_automaton&#123; int son[maxn][26],fa[maxn],sa[maxn],cnt[maxn]; int len[maxn],tot,lst,cur,siz[maxn]; void init()&#123;tot=1,lst=1,cur=0;&#125; void insert(int c) &#123; int p=lst;cur=++tot; len[cur]=len[p]+1; while(!son[p][c]&amp;&amp;p)son[p][c]=cur,p=fa[p]; if(!p)fa[cur]=1; else &#123; int q=son[p][c]; if(len[p]+1==len[q])fa[cur]=q; else &#123; int nq=++tot;len[nq]=len[p]+1; memcpy(son[nq],son[q],sizeof(son[q])); fa[nq]=fa[q],fa[q]=fa[cur]=nq; while(son[p][c]==q&amp;&amp;p)son[p][c]=nq,p=fa[p]; &#125; &#125; lst=cur,siz[cur]=1; &#125; void build() &#123; for(int i=2;i&lt;=tot;i++)cnt[len[i]]++; for(int i=1;i&lt;=tot;i++)cnt[i]+=cnt[i-1]; for(int i=tot;i&gt;=2;i--)sa[cnt[len[i]]--]=i; for(int i=tot;i&gt;=2;i--) &#123; int p=sa[i]; if(siz[p]&gt;1)ans=max(ans,len[p]*1LL*siz[p]); siz[fa[p]]+=siz[p]; &#125; &#125;&#125;S;int n;char s[maxn];int main()&#123; scanf("%s",s+1);n=strlen(s+1); S.init(); for(int i=1;i&lt;=n;i++)S.insert(s[i]-'a'); S.build();printf("%lld\n",ans);&#125; 线段树合并有空再填。。。]]></content>
