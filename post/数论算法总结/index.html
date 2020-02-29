@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数论算法快速乘12345ll mul(ll a,ll b,ll mod)&amp;#123;	ll tmp=a*b-(ll)((long double)a/mod*b+0.5)*mod;	return tmp&amp;lt;0?tmp+mod:tmp;&amp;#125; 同余系相关Exgcd ax+by=c存在 $ax+by=\gcd(a,b)因为 $所以 $a x_{1}+b y_{1}=b x_{2}+\left(">
+<meta name="keywords" content="数论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数论算法总结">
+<meta property="og:url" content="https://harrybh.github.io/post/数论算法总结/index.html">
+<meta property="og:site_name" content="Harry_bh&#39;s blog">
+<meta property="og:description" content="数论算法快速乘12345ll mul(ll a,ll b,ll mod)&amp;#123;	ll tmp=a*b-(ll)((long double)a/mod*b+0.5)*mod;	return tmp&amp;lt;0?tmp+mod:tmp;&amp;#125; 同余系相关Exgcd ax+by=c存在 $ax+by=\gcd(a,b)因为 $所以 $a x_{1}+b y_{1}=b x_{2}+\left(">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-29T10:22:43.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数论算法总结">
+<meta name="twitter:description" content="数论算法快速乘12345ll mul(ll a,ll b,ll mod)&amp;#123;	ll tmp=a*b-(ll)((long double)a/mod*b+0.5)*mod;	return tmp&amp;lt;0?tmp+mod:tmp;&amp;#125; 同余系相关Exgcd ax+by=c存在 $ax+by=\gcd(a,b)因为 $所以 $a x_{1}+b y_{1}=b x_{2}+\left(">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://harrybh.github.io/post/数论算法总结/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数论算法总结 | Harry_bh's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Harry_bh's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://harrybh.github.io/post/数论算法总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Harry_bh">
+      <meta itemprop="description" content="这世间，唯有青春与梦想不可辜负">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Harry_bh's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数论算法总结
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-29 17:52:23 / 修改时间：18:22:43" itemprop="dateCreated datePublished" datetime="2020-02-29T17:52:23+08:00">2020-02-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/总结/" itemprop="url" rel="index"><span itemprop="name">总结</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/post/数论算法总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/post/数论算法总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数论算法"><a href="#数论算法" class="headerlink" title="数论算法"></a>数论算法</h1><h2 id="快速乘"><a href="#快速乘" class="headerlink" title="快速乘"></a>快速乘</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">mul</span><span class="params">(ll a,ll b,ll mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll tmp=a*b-(ll)((<span class="keyword">long</span> <span class="keyword">double</span>)a/mod*b+<span class="number">0.5</span>)*mod;</span><br><span class="line">	<span class="keyword">return</span> tmp&lt;<span class="number">0</span>?tmp+mod:tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="同余系相关"><a href="#同余系相关" class="headerlink" title="同余系相关"></a>同余系相关</h2><h3 id="Exgcd"><a href="#Exgcd" class="headerlink" title="Exgcd"></a>Exgcd</h3><script type="math/tex; mode=display">
+ax+by=c</script><p>存在 $ax+by=\gcd(a,b)因为 $所以 $a x_{1}+b y_{1}=b x_{2}+\left(a-\left(\left\lfloor\frac{a}{b}\right\rfloor \times b\right)\right) y_{2}$</p>
+<p> $a y_{2}+b x_{2}-\left\lfloor\frac{a}{b}\right\rfloor \times b y_{2}=a y_{2}+b\left(x_{2}-\left\lfloor\frac{a}{b}\right\rfloor y_{2}\right)$</p>
+<p>所以 $x_{1}=y_{2}, y_{1}=x_{2}-\left\lfloor\frac{a}{b}\right\rfloor y_{2}$</p>
+<p>递归求解，终止时必然有 $x=1,y=0$ 。</p>
+<p>解集为 $\{(x,y)|x=x_1+k\frac{b}{\gcd(a,b)},y=y_1-k\frac{a}{\gcd(a,b)}\}$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)&#123;x=<span class="number">1</span>,y=<span class="number">0</span>;<span class="keyword">return</span>;&#125;</span><br><span class="line">    exgcd(b,a%b,x,y);</span><br><span class="line">    ll t=y;y=x-y*(a/b),x=t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="ExCRT"><a href="#ExCRT" class="headerlink" title="ExCRT"></a>ExCRT</h3><script type="math/tex; mode=display">
+\left\{\begin{array}{l}
+{x \equiv b_{1}\left(\bmod a_{1}\right)} \\
+{x \equiv b_{2}\left(\bmod a_{2}\right)} \\
+{\cdots} \\
+{x \equiv b_{n}\left(\bmod a_{n}\right)}
+\end{array}\right.</script><p>每次合并两个方程 $x \equiv b_{1}\left(\bmod a_{1}\right)$ 和 $x \equiv b_2\left(\bmod a_2\right)$ </p>
+<p>存在 $x=b_1+a_1k_1,x=b_2+a_2k_2\to b_1+a_1k_1=b_2+a_2k_2$</p>
+<p>求解二元一次方程 $a_1k_1-a_2k_2=b_2-b_1$ </p>
+<p>设 $c\equiv k_1(\bmod \frac{a_2}{\gcd(a_1,a_2)})$</p>
+<p>可得新的方程为</p>
+<p>$x \equiv ca_{1}+b_{1}(\bmod \frac{a_1a_2}{\gcd(a_1,a_2)})$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">ExCRT</span><span class="params">(ll *a,ll *p,<span class="keyword">const</span> <span class="keyword">int</span> &amp;n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll A=a[<span class="number">1</span>],M=p[<span class="number">1</span>],k1,k2;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ll c=((a[i]-A)%p[i]+p[i])%p[i],g=gcd(M,p[i]);</span><br><span class="line">		<span class="keyword">if</span>(c%g)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		exgcd(M,p[i],k1,k2);</span><br><span class="line">		k1=mul(k1,c/g,p[i]);</span><br><span class="line">		ll now=M/g*p[i];</span><br><span class="line">		A=(mul(k1,M,now)+A)%now,M=now;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (A%M+M)%M;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="ExBSGS"><a href="#ExBSGS" class="headerlink" title="ExBSGS"></a>ExBSGS</h3><script type="math/tex; mode=display">
+a^x\equiv b(\bmod p)</script><p>根据欧拉定理 $a^{\phi(p)}\equiv 1(\bmod p)$ ，$p$ 与 $a$ 互质。</p>
+<p>可以在 $O(p)$ 的时间复杂度解决这个问题。</p>
+<p>但是对于一般情况 $p$ 不一定与 $a$ 互质。</p>
+<p>设 $g=\gcd(a,p)$ </p>
+<p>若 $g|b$ ，则存在 </p>
+<script type="math/tex; mode=display">
+a^{x-1}\frac{a}{g}\equiv \frac{b}{g}(\bmod\frac{p}{g})</script><p>否则，若 $b=1$ 解为 $x=0$，$b≠1$ 无解 </p>
+<p>由 $\frac{a}{g} $ 与 $ \frac{p}{g}$ 互质可得</p>
+<script type="math/tex; mode=display">
+a^{x-1}\equiv \frac{b}{g}(\frac{a}{g})^{-1}(\bmod\frac{p}{g})</script><p>继续分解直到 $g=1$ 为止</p>
+<script type="math/tex; mode=display">
+a^{x-t}\equiv\frac{b}{\prod g_i}(\frac{a^t}{\prod g_i})^{-1}(\bmod {\frac{p}{\prod g_i}})</script><p>这时候需要特判 $a^1,a^2,…,a^t$ 是否存在与 $b$ 同余的数。</p>
+<p>因为 $g=1$ ，所以原问题就被转换为了 $a^x\equiv b(\bmod{p})$，且 $a,p$ 互质。</p>
+<p>考虑分块求解这个问题，设 $n=\lceil\sqrt{q}\rceil$</p>
+<p>显然可以使用 $xn-y,x,y\leq n$ 来表示一个小于 $p$ 的数</p>
+<p>$a^{xn}\equiv ba^{y}(\bmod{p})$</p>
+<p>只需要将所有的 $ba^{y}$ 存入<code>Hash</code>表中，再对所有 $y$ 查询合法的值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ExBSGS</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a==<span class="number">0</span>&amp;&amp;b==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(a==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">1</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;vis;</span><br><span class="line">	<span class="keyword">int</span> g=gcd(a,p),mag=<span class="number">1</span>,t=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(g!=<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(b%g)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		++t,p/=g,b/=g,mag=mag*<span class="number">1L</span>L*(a/g)%p;</span><br><span class="line">		<span class="keyword">if</span>(mag==b)<span class="keyword">return</span> t;</span><br><span class="line">		g=gcd(a,p);</span><br><span class="line">	&#125;</span><br><span class="line">	vis.clear();</span><br><span class="line">	<span class="keyword">int</span> n=<span class="built_in">sqrt</span>(p)+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,m=b;i&lt;n;i++,m=m*<span class="number">1L</span>L*a%p)vis[m]=i;</span><br><span class="line">	a=Pow(a,n,p);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,m=mag*<span class="number">1L</span>L*a%p;i&lt;=n;i++,m=m*<span class="number">1L</span>L*a%p)<span class="keyword">if</span>(vis.count(m))<span class="keyword">return</span> i*n-vis[m]+t;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Lucas"><a href="#Lucas" class="headerlink" title="Lucas"></a>Lucas</h3><script type="math/tex; mode=display">
+C_{n}^{m}\equiv C_{\lfloor\frac{n}{p}\rfloor}^{\lfloor\frac{m}{p}\rfloor} \cdot C_{n\bmod p}^{m\bmod p}(\bmod{p})</script><p>首先可以观察得出 $C_p^i=\frac{p}{i}C_{p-1}^{i-1}$ ，所以显然有 $C_p^i\equiv0(\bmod p)$</p>
+<script type="math/tex; mode=display">
+(1+x)^p=\sum_{i=0}^p C_n^ix^i\\
+(1+x)^p\equiv C_p^0x^0+C_p^px^p\equiv1+x^p(\bmod p)</script><p>设 $n=a_0+a_1p+a_2p^2+a_3^p+…+a_kp^k,m=b_0+b_1p+b_2p^2+…+b_kp^k$</p>
+<p><code>lucas</code>定理也可以表示为一下形式 </p>
+<script type="math/tex; mode=display">
+C_n^m\equiv\prod_{i=0}^kC_{a_i}^{b_i}(\bmod p)</script><p>$(1+x)^n$ 中 $x^m$ 的系数显然为 $C_m^n$</p>
+<script type="math/tex; mode=display">
+(1+x)^{n}=\prod_{i=0}^{k}\left((1+x)^{p^{i}}\right)^{a_{i}}\\
+(1+x)^n\equiv\prod_{i=0}^k(1+x^{p^i})^{a_i}(\bmod p)</script><p>可得 $x^m$ 的系数为 $\prod_{i=0}^kC_{a_i}^{b_i} $</p>
+<p>因为 $m=b_0+b_1p+b_2p^2+…+b_kp^k$ 若 $\exists a_i&lt;b_i$ 则 $m$ 无法被表示系数为 $0$</p>
+<p>得证。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lucas</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m,<span class="keyword">int</span> mod)</span></span>&#123;<span class="keyword">if</span>(n==<span class="number">0</span>&amp;&amp;m==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">1</span>;<span class="keyword">return</span> lucas(n/mod,m/mod,mod)*<span class="number">1L</span>L*C(n%mod,m%mod,mod)%mod;&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Exlucas"><a href="#Exlucas" class="headerlink" title="Exlucas"></a>Exlucas</h3><script type="math/tex; mode=display">
+C_n^m\bmod p,p\leq 10^6</script><p>这里的 $p$ 可能不是质数</p>
+<p>根据唯一分解定理 $p=p_1^{k_1}p_2^{k_2}…p_t^{k_t}$</p>
+<p>若 $\forall k_i,k_i=1$ 可以直接对于每个质数使用<code>lucas</code>求解，再使用<code>CRT</code>合并。</p>
+<p>否则需要求解子问题 $C_n^m \bmod p_i^{k_i}$ 再使用<code>CRT</code>合并。</p>
+<script type="math/tex; mode=display">
+C_n^m=\frac{n!}{m!(n-m)!}=\frac{\frac{n!}{p^a}}{\frac{m!}{p^b}\frac{(n-m)!}{p^c}}p^{a-b-c}</script><p>只需要解决 $\frac{n!}{p^a}\bmod p^k$ ，其中 $a$ 是 $n!$ 包含的 $p$ 的次数。</p>
+<p>考虑将 $n!$ 分组，$n!=(p\times2p\times 3p\times 4p\times…\times\lfloor\frac{n}{p}\rfloor p)\times1\times2\times…\times(p-1)\times(p+1)\times…\times(2p-1)\times…$</p>
+<p>可以发现后面是模 $p^k$ 是循环的，可以通过预处理求出</p>
+<script type="math/tex; mode=display">
+n!\equiv\lfloor\frac{n}{p}\rfloor!\cdot p^{\lfloor\frac{n}{p}\rfloor}(\prod_{i,(i,p)=1}^{p^k}{i})^{\lfloor\frac{n}{p^k}\rfloor}\prod_{i,(i,p)=1}^{n\ mod\ p^k}i(\bmod p^k)</script><p>前面的 $\lfloor\frac{n}{p}\rfloor!$ 是一个子问题递归求解即可。</p>
+<p>复杂度 $O(p\log n)$</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">mul</span><span class="params">(ll a,ll b,ll mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll tmp=a*b-(ll)((<span class="keyword">long</span> <span class="keyword">double</span>)a/mod*b+<span class="number">0.5</span>)*mod;</span><br><span class="line">	<span class="keyword">return</span> tmp&lt;<span class="number">0</span>?tmp+mod:tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">Pow</span><span class="params">(ll a,ll k,ll mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ret=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;<span class="keyword">if</span>(k&amp;<span class="number">1</span>)ret=ret*<span class="number">1L</span>L*a%mod;k&gt;&gt;=<span class="number">1</span>,a=a*<span class="number">1L</span>L*a%mod;&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">fact</span><span class="params">(ll n,ll p,ll pk)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!n)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    ll ans=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;pk;i++)<span class="keyword">if</span>(i%p)ans=ans*<span class="number">1L</span>L*i%pk;</span><br><span class="line">    ans=Pow(ans,n/pk,pk);</span><br><span class="line">    <span class="keyword">for</span>(ll i=<span class="number">1</span>;i&lt;=n%pk;i++)<span class="keyword">if</span>(i%p)ans=ans*<span class="number">1L</span>L*i%pk;</span><br><span class="line">    <span class="keyword">return</span> ans*<span class="number">1L</span>L*fact(n/p,p,pk)%pk;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123;<span class="keyword">return</span> b?gcd(b,a%b):a;&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)<span class="keyword">return</span> x=<span class="number">1</span>,y=<span class="number">0</span>,<span class="keyword">void</span>();</span><br><span class="line">	exgcd(b,a%b,x,y);</span><br><span class="line">	ll t=x;x=y,y=t-y*(a/b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">inv</span><span class="params">(ll x,ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll t1,t2;</span><br><span class="line">	exgcd(x,p,t1,t2);</span><br><span class="line">	<span class="keyword">return</span> (t1%p+p)%p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">getpower</span><span class="params">(ll x,ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll c=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(x)c+=x/p,x/=p;</span><br><span class="line">	<span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">C</span><span class="params">(ll n,ll m,ll p,ll pk)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll pa=getpower(n,p)-getpower(m,p)-getpower(n-m,p);</span><br><span class="line">	<span class="keyword">return</span> Pow(p,pa,pk)*<span class="number">1L</span>L*fact(n,p,pk)%pk*inv(fact(m,p,pk),pk)%pk*inv(fact(n-m,p,pk),pk)%pk;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">ExCRT</span><span class="params">(ll *a,ll *p,<span class="keyword">const</span> ll&amp;n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll A=a[<span class="number">1</span>],M=p[<span class="number">1</span>],k1,k2;</span><br><span class="line">	<span class="keyword">for</span>(ll i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ll c=((a[i]-A)%p[i]+p[i])%p[i],g=gcd(M,p[i]);</span><br><span class="line">		<span class="keyword">if</span>(c%g)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		exgcd(M,p[i],k1,k2);</span><br><span class="line">		k1=mul(k1,c/g,p[i]);</span><br><span class="line">		ll now=M/g*p[i];</span><br><span class="line">		A=(mul(k1,M,now)+A)%now,M=now;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (A%M+M)%M;</span><br><span class="line">&#125;</span><br><span class="line">ll a[<span class="number">30</span>],b[<span class="number">30</span>];</span><br><span class="line">ll cnt;</span><br><span class="line"><span class="function">ll <span class="title">exlucas</span><span class="params">(ll n,ll m,ll p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cnt=<span class="number">0</span>;</span><br><span class="line">	ll lim=<span class="built_in">sqrt</span>(p);</span><br><span class="line">	<span class="keyword">for</span>(ll i=<span class="number">2</span>;i&lt;lim;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(p%i)<span class="keyword">continue</span>;</span><br><span class="line">		ll t=<span class="number">1</span>;<span class="keyword">while</span>(p%i==<span class="number">0</span>)p/=i,t*=i;</span><br><span class="line">		a[++cnt]=t,b[cnt]=C(n,m,i,t);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p&gt;<span class="number">1</span>)a[++cnt]=p,b[cnt]=C(n,m,p,p);</span><br><span class="line">	<span class="keyword">return</span> ExCRT(b,a,cnt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h3><p>无特殊说明 $p$ 均为奇素数。</p>
+<p>对于 $p,n$ ，若存在 $x$ ，满足</p>
+<script type="math/tex; mode=display">
+x^2\equiv n(\bmod p)</script><p>则称 $n$ 为模 $p$ 意义下的二次剩余</p>
+<h4 id="勒让德符号"><a href="#勒让德符号" class="headerlink" title="勒让德符号"></a>勒让德符号</h4><script type="math/tex; mode=display">
+\left(\frac{n}{p}\right)=
+\begin{cases}
+1,&n\text{在模$p$意义下是二次剩余}\\
+-1,&n\text{在模$p$意义下是非二次剩余}\\
+0,&n\equiv0\pmod p
+\end{cases}</script><h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><script type="math/tex; mode=display">
+\left({n\over p}\right)\equiv n^{p-1\over 2}\pmod{p}</script><p>证明：</p>
+<p>若 $n$ 为模 $p$ 意义下的二次剩余，即存在 $x^2\equiv n(\bmod p)$ ，由费马小定理可得 $x^{p-1}\equiv 1(\bmod p)$，显然 $n^{\frac{p-1} {2}}\equiv 1(\bmod p)$ 。</p>
+<p>若 $n$ 为模 $p$ 意义下的非二次剩余，假设存在 $x^2\equiv n(\bmod p)$ ，此时 $x^{p-1}\equiv -1(\bmod p)$ ，由费马小定理可知 $x$ 不存在 </p>
+<p>若 $n\equiv 0(\bmod p) $ ，显然成立。 </p>
+<h4 id="Cipolla"><a href="#Cipolla" class="headerlink" title="Cipolla"></a>Cipolla</h4><h5 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h5><script type="math/tex; mode=display">
+n^2\equiv (p-n)^2\pmod{p}</script><h5 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h5><p>$p$ 的二次剩余与非二次剩余的个数均为 $\frac{p-1}{2}$ （不考虑 $0$ 的情况下）。</p>
+<p>证明：</p>
+<p>我们只考虑所有的 $n^2$，假设有 $x≠y$ 且 $x^2≡y^2(\bmod p)$，则 $p∣(x^2−y^2)$，即 $p∣(x−y)(x+y)$，若$p∤(x−y)$，则 $p∣(x+y)$，故 $x+y≡0(\bmod p)$，也就是不同的 $x^2$ 共有 $\frac{p-1}{2} $ 个，即二次剩余有个 $\frac{p-1}{2}$ 个。</p>
+<h5 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h5><ol>
+<li>判断给定的数 $x$ 是否是二次剩余。</li>
+<li>随机一个 $a$，使其满足 $(a^2−x)$ 是二次非剩余。</li>
+<li>令 $\omega^2\equiv (a^2-x)\pmod{p}$ ，取 $y\equiv \left(a+{\omega}\right)^{p+1\over 2}$ 为其中一个可行解。</li>
+</ol>
+<p>证明：</p>
+<script type="math/tex; mode=display">
+\omega^{p-1}\equiv (\omega^2)^{p-1\over 2}\equiv (a^2-x)^{p-1\over 2}\equiv -1\pmod{p}</script><script type="math/tex; mode=display">
+(a+b)^n\equiv a^n+b^n\pmod{p}</script><script type="math/tex; mode=display">
+\begin{aligned}
+x^2&\equiv(a+\omega)^{p+1}\\
+&\equiv(a+\omega)^p(a+\omega)\\
+&\equiv(a^p+\omega^p)(a+\omega)\\
+&\equiv(a-\omega)(a+\omega)\\
+&\equiv a^2-\omega^2\\
+&\equiv a^2-(a^2-n)\\
+&\equiv n\pmod p
+\end{aligned}</script><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> mod,w;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a,b;</span><br><span class="line">	Complex(<span class="keyword">int</span> A=<span class="number">0</span>,<span class="keyword">int</span> B=<span class="number">0</span>)&#123;a=A,b=B;&#125;</span><br><span class="line">	Complex <span class="keyword">operator</span> * (<span class="keyword">const</span> Complex &amp;t)<span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> Complex((a*<span class="number">1L</span>L*t.a+b*<span class="number">1L</span>L*t.b%mod*w)%mod,(a*<span class="number">1L</span>L*t.b+b*<span class="number">1L</span>L*t.a)%mod);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">long</span> <span class="keyword">long</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;<span class="keyword">if</span>(k&amp;<span class="number">1</span>)ret=ret*<span class="number">1L</span>L*a%mod;k&gt;&gt;=<span class="number">1</span>,a=a*<span class="number">1L</span>L*a%mod;&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Pow</span><span class="params">(Complex a,<span class="keyword">long</span> <span class="keyword">long</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Complex ret=Complex(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;<span class="keyword">if</span>(k&amp;<span class="number">1</span>)ret=ret*a;k&gt;&gt;=<span class="number">1</span>,a=a*a;&#125;</span><br><span class="line">	<span class="keyword">return</span> ret.a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sqrt</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!x)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(Pow(x,(mod<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>)==mod<span class="number">-1</span>)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a=rand()*<span class="number">1L</span>L*rand()%mod;</span><br><span class="line">		w=(a*<span class="number">1L</span>L*a%mod+mod-x)%mod;</span><br><span class="line">		<span class="keyword">if</span>(Pow(w,(mod<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>)==mod<span class="number">-1</span>)<span class="keyword">return</span> Pow(Complex(a,<span class="number">1</span>),(mod+<span class="number">1</span>)&gt;&gt;<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="素数分解相关"><a href="#素数分解相关" class="headerlink" title="素数分解相关"></a>素数分解相关</h2><h3 id="Miller-Rabin"><a href="#Miller-Rabin" class="headerlink" title="Miller-Rabin"></a>Miller-Rabin</h3><p>判断 $q$ 是否为素数（$q\leq 10^{18}$）</p>
+<p>根据费马小定理，当 $a \bmod q ≠0$ 且 $q$ 为质数时，$a^{q-1}≡1 (\bmod q)$</p>
+<p>而当 $q$ 不是质数时，不一定成立</p>
+<p>因此就有了一个想法：随机一些 $a$ ，对每一个 $a$ 验证 ，如果有一个错误那么它一定是合数</p>
+<p>但是，存在这样一类合数 $q$ ，对于 $1≤a&lt;q$ 上面的式子都成立，比如 $561$</p>
+<h4 id="二次探测定理"><a href="#二次探测定理" class="headerlink" title="二次探测定理"></a>二次探测定理</h4><p>如果 $x^2≡1(\bmod p) $，那么  $x≡1(\bmod p)$ 或者 $x≡p-1(\bmod p)$ ，这里 $p$ 是质数。</p>
+<p>可以发现对于合数，有一定概率不成立。</p>
+<p>在检验时，如果 $a^{q-1}≡1(\bmod q)$ 且 $2|(q-1)$ ，则下一步计算 $a ^{\frac{q-1}{2}} \bmod q$ ,如果算出来不是 $1$ 或 $q-1$ ，那么 $q$ 是合数，如果算出来是 $1$ 并且  $2|\frac{q-1}{2}$ ，则继续计算 $\frac{q-1}{4}$ ，直到出现奇数或者算出 $q-1$ 。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">mul</span><span class="params">(ll a,ll b,ll mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll tmp=a*b-(ll)((<span class="keyword">long</span> <span class="keyword">double</span>)a/mod*b+<span class="number">0.5</span>)*mod;</span><br><span class="line">	<span class="keyword">return</span> tmp&lt;<span class="number">0</span>?tmp+mod:tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">Pow</span><span class="params">(ll a,ll k,ll mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll ret=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;<span class="keyword">if</span>(k&amp;<span class="number">1</span>)ret=mul(ret,a,mod);k&gt;&gt;=<span class="number">1</span>,a=mul(a,a,mod);&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> tprim[<span class="number">10</span>]=&#123;<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">23</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Miller_Rabin</span><span class="params">(ll x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;<span class="number">2</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    ll k=x<span class="number">-1</span>,cnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!(k&amp;<span class="number">1</span>))k&gt;&gt;=<span class="number">1</span>,++cnt;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,j;i&lt;=<span class="number">9</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(tprim[i]==x)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(Pow(tprim[i],x<span class="number">-1</span>,x)!=<span class="number">1</span>)<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">        ll now=Pow(tprim[i],k,x);</span><br><span class="line">        <span class="keyword">if</span>(now==<span class="number">1</span>||now==x<span class="number">-1</span>)<span class="keyword">continue</span>;</span><br><span class="line">        now=mul(now,now,x);</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=cnt;++j,now=mul(now,now,x))<span class="keyword">if</span>(now==x<span class="number">-1</span>)<span class="keyword">break</span>;	</span><br><span class="line">        <span class="keyword">if</span>(j&gt;cnt)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>递归改成递推，这样复杂度是 $O(k\log n)$</p>
+<h2 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2><h3 id="莫比乌斯反演函数"><a href="#莫比乌斯反演函数" class="headerlink" title="莫比乌斯反演函数"></a>莫比乌斯反演函数</h3><script type="math/tex; mode=display">
+\mu(n)=
+\begin{cases}
+1& n=1\\
+(-1)^k& n=\prod_{i=1}^kp_i\\
+0& \text{其余情况}
+\end{cases}</script><h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><script type="math/tex; mode=display">
+\sum_{d|n}\mu(d)=[n=1]</script><h3 id="莫比乌斯反演定理"><a href="#莫比乌斯反演定理" class="headerlink" title="莫比乌斯反演定理"></a>莫比乌斯反演定理</h3><p>若函数 $F(n)$ 满足</p>
+<script type="math/tex; mode=display">
+F(n)=\sum_{d|n}f(d)</script><p>则存在</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{d|n}\mu(d)F(\frac{n}{d})</script><p>证明：</p>
+<script type="math/tex; mode=display">
+\sum_{d|n}\mu(d)F(\frac{n}{d})=\sum_{d|n}\mu(d)\sum_{i|\frac{n}{d}}f(i)=\sum_{i|n}f(i)\sum_{d|\frac{n}{i}}\mu(d)=f(n)</script><p>考虑 $f(i)$ 的系数可以很简单地得到证明。</p>
+<hr>
+<p>推论：</p>
+<p>若函数 $F(d)$ 满足</p>
+<script type="math/tex; mode=display">
+F(d)=\sum_{i=1}^{\lfloor\frac{L}{d}\rfloor}f(i\cdot d)</script><p>则存在</p>
+<script type="math/tex; mode=display">
+f(d)=\sum_{i=1}^{\lfloor\frac{L}{d}\rfloor}\mu(i)F(i\cdot d)</script><p>证明：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{\lfloor\frac{L}{d}\rfloor}\mu(i)F(i\cdot d)=\sum_{i=1}^{\lfloor\frac{L}{d}\rfloor}\mu(i)\sum_{j=1}^{\lfloor\frac{L}{i\cdot d}\rfloor}f(i\cdot j\cdot d)=\sum_{k=1}^{\lfloor\frac{L}{d}\rfloor}f(k\cdot d)\sum_{i|k}\mu(i)=\sum_{k=1}^{\lfloor\frac{L}{d}\rfloor}f(k\cdot d)[k=1]=f(d)</script><p>考虑每个 $f(k\cdot d)$ 的系数被贡献时满足 $i\cdot j=k$，显然 $i$ 是 $k$ 的约数，被贡献的系数值为 $\mu(i)$。</p>
+<p>这个推论可以很简单地用于求解类似 $\sum_{i=1}^n\sum_{j=1}^n[\gcd(i,j)=d]$ 问题</p>
+<h3 id="一些例题"><a href="#一些例题" class="headerlink" title="一些例题"></a>一些例题</h3><p>基础的套路不在过多阐述。                            </p>
+<h4 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1."></a>Problem 1.</h4><script type="math/tex; mode=display">
+\sum_{i=1}^n\sum_{j=1}^n\frac{ij}{\gcd(i,j)}\\</script><p>设 $f(d)$ 满足 （满足 $\gcd(i,j)=d$ 的 $\frac{ij}{d}$ 的和）</p>
+<script type="math/tex; mode=display">
+f(d)=\sum_{i=1}^n\sum_{j=1}^n \frac{ij}{d}[\gcd(i,j)=d]=\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor} ijd[\gcd(i,j)=1]</script><p>显然</p>
+<script type="math/tex; mode=display">
+ans=\sum_{d=1}^nf(d)</script><p>由莫比乌斯反演的性质可得</p>
+<script type="math/tex; mode=display">
+\sum_{d=1}^nd\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor} ij\sum_{k|\gcd(i,j)}\mu(k)</script><p>枚举 $k$ </p>
+<script type="math/tex; mode=display">
+\sum_{d=1}^nd\sum_{k=1}^{\lfloor\frac{n}{d}\rfloor}\mu(k)k^2\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{kd}\rfloor} ij</script><p>这里可以直接数论分块 $O(n)$ 解决。</p>
+<p>继续将这个式子变形， 考虑枚举 $T=kd$</p>
+<script type="math/tex; mode=display">
+\sum_{T=1}^n F(\lfloor\frac{n}{T}\rfloor)^2T\sum_{d|T}\mu(d)d</script><p>可以发现后面的 $g(T)=\sum_{d|T}\mu(d)d$ 是一个积性函数，可以线性筛出来。</p>
+<p>这样对于单次询问复杂度 $O(\sqrt{n})$</p>
+<h4 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2."></a>Problem 2.</h4><script type="math/tex; mode=display">
+\sum_{i=1}^n\sum_{j=1}^md(ij)</script><p>$d(i)$ 为 $i$ 的约数个数</p>
+<p>有一个结论 </p>
+<script type="math/tex; mode=display">
+d(ij)=\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1]</script><p>显然每个质因子 $p$ 的贡献是独立的，$d(x)$ 为每种质因子贡献的乘积，设 $i=i’p^{k_1},j=j’p^{k_2}$ 可以发现左边贡献为 $k_1+k_2+1$ ，右边贡献为 $k_1+1+k_2+1-1$ （$[\gcd(p^{t_1},p^{t_2})=1],t_1\leq k_1,t_2\leq k_2$），所以得证。</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}[\gcd(x,y)=1]\\
+\sum_{i=1}^n\sum_{j=1}^m\sum_{x|i}\sum_{y|j}\sum_{d|\gcd(x,y)}\mu(d)</script><p>按照套路考虑枚举 $d$ ，显然此时 $x,y$ 对 $d$ 有贡献，仅当 $\gcd(x,y)$ 是 $d$ 的倍数。</p>
+<p>所以 $x$ 为 $d$ 的倍数，$y$ 为 $d$ 的倍数。</p>
+<script type="math/tex; mode=display">
+\sum_{d=1}^{\min(n,m)}\sum_{x=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{y=1}^{\lfloor\frac{m}{d}\rfloor}\sum_{i=1}^{\lfloor\frac{n}{xd}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{yd}\rfloor}\mu(d)</script><p>考虑设 $f(n)$ 为</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{x=1}^{n}\lfloor\frac{n}{x}\rfloor</script><p>显然 $f(n) $ 不难发现 $f(n)=\sum_{i=1}^n d(i)$</p>
+<p>考虑线性筛筛出 $d(i)$ </p>
+<script type="math/tex; mode=display">
+\sum_{d=1}^{\min(n,m)}\mu(d)f(\lfloor\frac{n}{d}\rfloor)f(\lfloor\frac{m}{d}\rfloor)</script><p>这个显然可以数论分块，总复杂度 $O(n) $</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一般来说莫比乌斯反演的题目，主要考虑化为 $[\gcd(x,y)=1]$ ，通过交换枚举顺序构造积性函数，或者使用数论分块求解，最重要的是抓住运算的性质和熟练掌握反演公式。</p>
+<h2 id="Min-25-筛"><a href="#Min-25-筛" class="headerlink" title="Min_25 筛"></a>Min_25 筛</h2><p>规定 $P$ 是所有质数组成的集合，若无特殊说明 $p$ 为质数。 </p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^Nf(i)</script><p>其中 $f(n)$ 为积性函数，并且 $f(p^k)$ 能够快速计算，$f(p)$ 能够表示为一个简单多项式。</p>
+<h3 id="筛质数的答案"><a href="#筛质数的答案" class="headerlink" title="筛质数的答案"></a>筛质数的答案</h3><p>首先需要对每个 $n=\lfloor\frac{N}{i}\rfloor$求出 $\sum_{i=1}^n[i\in P]f(i)$</p>
+<p>首先线性筛出 $\sqrt{n}$ 以内的所有质数，$P_i$ 表示第 $i$ 个质数。</p>
+<p>因为 $f(p)$ 能够写成一个简单多项式</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^n [i\in P] f(i) = \sum_{i=1}^n [i\in P] \sum_{k=0}^{\infty} a_k i^k = \sum_{k=0}^{\infty} a_k \sum_{i=1}^n [i\in P] i^k</script><p>所以本质上来说需要求解的是 $\sum_{i=1}^n [i\in P] i^k$ </p>
+<p>考虑构造一个函数 $g(n,j)$ 满足</p>
+<script type="math/tex; mode=display">
+g(n,j)=\sum_{i=1}^{n}[i \in P \ or\ \min(p)>P_j]i^k</script><p>$\min (i) $ 表示 $i$ 的最小质因子。</p>
+<p>其实不难发现 $g(n,j)$ 相当于运行了 $j$ 次埃氏筛后，没有被筛掉的数和质数的 $i^k$ 的和。</p>
+<p>考虑如何求 $g(n,j)$ ，发现这个转移可以分类讨论</p>
+<script type="math/tex; mode=display">
+g(n,j)=\begin{cases}    g(n,j-1)&P_j^2\gt n\\    g(n,j-1)-P_j^k[g(\lfloor\frac{n}{P_j}\rfloor,j-1)-g(p_{j-1},j-1)]&P_j^2\le n\end{cases}</script><p>考虑第 $j$ 次筛质数，显然筛掉的是最小质因子大于 $P_j$ 的数，而满足这个条件数必然大于 $P_j^2$ </p>
+<p>所以如果 $n&lt;P_j^2$ ，这次筛是不会筛掉任何数的，显然 $g(n,j)=g(n,j-1)$ 。</p>
+<p>否则 $n\geq P_j^2$ ，显然会筛掉 $P_j$ 的所有倍数（最小质因子为 $P_j $）。</p>
+<p>不难发现 $i^k$ 是一个完全积性函数，可以将需要删掉的 $P_j$ 的倍数表示为 $P_j\cdot s$ ($2\leq s\leq \lfloor\frac{n}{P_j}\rfloor$，且 $s$ 的最小质因子大于等于 $P_j$)，不难发现 $g(\lfloor\frac{n}{P_j}\rfloor,j-1)$  为所有合法的 $s^k$ 的和加上 $\sum_{i=1}^{j-1}P_i^k$ ，而 $g(p_{j-1},j-1)$ 恰好等于 $\sum_{i=1}^{j-1}P_i^k$ ，所以 $g(\lfloor\frac{n}{P_j}\rfloor,j-1)-g(p_{j-1},j-1)$ 就是所有合法的 $s^k$ 的和，而 $i^k$ 是完全积性函数，只需要乘上 $P_j^k$ 就是需要删掉的数。</p>
+<p>边界条件 $g(n,0)=\sum_{i=1}^n i^k$ 显然 $k$ 较小的情况可以直接手推公式，$k$ 较大可以考虑插值（$k$ 大了时间复杂度爆炸）。</p>
+<h3 id="筛所有数的答案"><a href="#筛所有数的答案" class="headerlink" title="筛所有数的答案"></a>筛所有数的答案</h3><script type="math/tex; mode=display">
+S(n,j) = \sum_{i=1}^n [\min(i) > p_j] f(i)</script><p> 如果分质数与合数讨论显然可以得到</p>
+<script type="math/tex; mode=display">
+S(n,j)=g(n,|P|)-g(p_{j},j)+\sum_{k=j+1}^{P_k^2\leq n}\sum_{e=1}^{P_k^{e}\le n}f(P_k^e)(S(\lfloor\frac{n}{P_k^e}\rfloor,k)+[e\not=1])</script><p>前面一部分即为所有质数的贡献，而后面求合数的贡献，非常好理解就是暴力枚举 $P_k$ 及其次幂然后求值，要注意的是 $S(\lfloor\frac{n}{P_k^e}\rfloor,k+1)f(P_k^e)$ 并不包含出 $P_k^{e+1}$ 的函数值，所以还需要加上 $f(P_k^{e+1})$ 。</p>
+<p>总复杂度 $O(\frac{n^{\frac{3}{4}}}{\log n})$</p>
+<h3 id="关于实现方面的细节"><a href="#关于实现方面的细节" class="headerlink" title="关于实现方面的细节"></a>关于实现方面的细节</h3><p>有一个性质 $\lfloor\frac{\lfloor\frac{n}{a}\rfloor}{b}\rfloor=\lfloor\frac{n}{ab}\rfloor$ 所以我们只需要预处理所有的 $g(\lfloor\frac{n}{x}\rfloor,j)$  就可以了。</p>
+<p>在这里如果使用 <code>map</code> 储存复杂度显然会变大，考虑到 $\lfloor\frac{n}{\lfloor\frac{n}{x}\rfloor}\rfloor$ 与 $\lfloor\frac{n}{x}\rfloor$ 中必然有一个数 $\leq \sqrt{n}$ ，所以可以直接用两个数组储存编号。</p>
+<p>$S(n,j)$ 运算的时候不需要记忆化，因为调用的所有 $S(n,j)$ 中没有相同的整数对 $(n,j)$ 。</p>
+<p>$\sum_{i=1}^ni=\frac{n(n+1)}{2}$</p>
+<p>$\sum_{i=1}^ni^2=\frac{n(n+1)(2n+1)}{6}$</p>
+<p>$\sum_{i=1}^ni^3=\frac{n^2(n+1)^2}{4}$</p>
+<p>$\sum_{i=1}^{n}i^4=\frac{n(n+1)(2n+1)(3n^2+3n-1)}{30}$</p>
+<p>举个简单的例子 </p>
+<script type="math/tex; mode=display">
+f(p^k)=p^k(p^k-1)</script><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">namespace</span> Min_25</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">1e9</span>+<span class="number">7</span>,inv2=(mod+<span class="number">1</span>)/<span class="number">2</span>,inv3=(mod+<span class="number">1</span>)/<span class="number">3</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">md</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;<span class="keyword">return</span> x&gt;=mod?x-mod:x;&#125;</span><br><span class="line">	<span class="keyword">bool</span> flag[maxn];</span><br><span class="line">	<span class="keyword">int</span> g1[maxn],g2[maxn];</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> w[maxn];</span><br><span class="line">	<span class="keyword">int</span> id1[maxn],id2[maxn],m;</span><br><span class="line">	<span class="keyword">int</span> sum1[maxn],sum2[maxn],lim;	</span><br><span class="line">	<span class="keyword">int</span> prime[maxn],cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">make_prime</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(!flag[i])</span><br><span class="line">			&#123;</span><br><span class="line">				prime[++cnt]=i;</span><br><span class="line">				sum1[cnt]=(sum1[cnt<span class="number">-1</span>]+i);</span><br><span class="line">				sum2[cnt]=(sum2[cnt<span class="number">-1</span>]+i*<span class="number">1L</span>L*i)%mod;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;prime[j]*i&lt;=n;j++)</span><br><span class="line">			&#123;</span><br><span class="line">				flag[prime[j]*i]=<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">if</span>(i%prime[j]==<span class="number">0</span>)<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">G</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		m=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">long</span> i=<span class="number">1</span>,j;i&lt;=n;i=j+<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			w[++m]=n/i,j=n/w[m];</span><br><span class="line">			<span class="keyword">if</span>(w[m]&lt;=lim)id1[w[m]]=m;</span><br><span class="line">			<span class="keyword">else</span> id2[n/w[m]]=m;</span><br><span class="line">			<span class="keyword">int</span> t=w[m]%mod;</span><br><span class="line">			g1[m]=(t+<span class="number">1</span>)*<span class="number">1L</span>L*t/<span class="number">2</span>%mod<span class="number">-1</span>;</span><br><span class="line">			g2[m]=(t+<span class="number">1</span>)*<span class="number">1L</span>L*t/<span class="number">2</span>%mod*(t*<span class="number">2</span>+<span class="number">1</span>)%mod*inv3%mod<span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m&amp;&amp;prime[i]*<span class="number">1L</span>L*prime[i]&lt;=w[j];j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> lst=w[j]/prime[i]&lt;=lim?id1[w[j]/prime[i]]:id2[n/(w[j]/prime[i])];</span><br><span class="line">			g1[j]=md(g1[j]+mod-(g1[lst]-sum1[i<span class="number">-1</span>]+mod)*<span class="number">1L</span>L*prime[i]%mod);</span><br><span class="line">			g2[j]=md(g2[j]+mod-(g2[lst]-sum2[i<span class="number">-1</span>]+mod)*<span class="number">1L</span>L*prime[i]%mod*prime[i]%mod);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">S</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(prime[j]&gt;=a)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> id=a&lt;=lim?id1[a]:id2[n/a];</span><br><span class="line">		<span class="keyword">int</span> ans=md(md(g2[id]+mod-g1[id])+mod-md(sum2[j]+mod-sum1[j]));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=j+<span class="number">1</span>;prime[k]*<span class="number">1L</span>L*prime[k]&lt;=a&amp;&amp;k&lt;=cnt;k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">long</span> <span class="keyword">long</span> pe=prime[k];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> e=<span class="number">1</span>;pe&lt;=a;e++,pe*=prime[k])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">long</span> <span class="keyword">long</span> tmp=pe%mod;</span><br><span class="line">				ans=(ans+tmp*(tmp<span class="number">-1</span>)%mod*(S(a/pe,k)+(e!=<span class="number">1</span>)))%mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ans;</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Sum</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> N)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		n=N;</span><br><span class="line">		lim=<span class="built_in">sqrt</span>(n);</span><br><span class="line">		make_prime(lim);</span><br><span class="line">		G();</span><br><span class="line">		<span class="keyword">return</span> (S(n,<span class="number">0</span>)+<span class="number">1</span>)%mod;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> n;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Min_25::Sum(n));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数论/" rel="tag"># 数论</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/「学习笔记」集合幂级数/" rel="next" title="「学习笔记」集合幂级数">
+                <i class="fa fa-chevron-left"></i> 「学习笔记」集合幂级数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Harry_bh">
+            
+              <p class="site-author-name" itemprop="name">Harry_bh</p>
+              <div class="site-description motion-element" itemprop="description">这世间，唯有青春与梦想不可辜负</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/harrybh" title="GitHub &rarr; https://github.com/harrybh" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1256072851@qq.com" title="E-Mail &rarr; mailto:1256072851@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数论算法"><span class="nav-number">1.</span> <span class="nav-text">数论算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速乘"><span class="nav-number">1.1.</span> <span class="nav-text">快速乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同余系相关"><span class="nav-number">1.2.</span> <span class="nav-text">同余系相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exgcd"><span class="nav-number">1.2.1.</span> <span class="nav-text">Exgcd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ExCRT"><span class="nav-number">1.2.2.</span> <span class="nav-text">ExCRT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ExBSGS"><span class="nav-number">1.2.3.</span> <span class="nav-text">ExBSGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lucas"><span class="nav-number">1.2.4.</span> <span class="nav-text">Lucas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exlucas"><span class="nav-number">1.2.5.</span> <span class="nav-text">Exlucas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二次剩余"><span class="nav-number">1.2.6.</span> <span class="nav-text">二次剩余</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#勒让德符号"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">勒让德符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#欧拉判别准则"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">欧拉判别准则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cipolla"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">Cipolla</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定理1"><span class="nav-number">1.2.6.3.1.</span> <span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定理2"><span class="nav-number">1.2.6.3.2.</span> <span class="nav-text">定理2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法流程"><span class="nav-number">1.2.6.3.3.</span> <span class="nav-text">算法流程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#素数分解相关"><span class="nav-number">1.3.</span> <span class="nav-text">素数分解相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Miller-Rabin"><span class="nav-number">1.3.1.</span> <span class="nav-text">Miller-Rabin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二次探测定理"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">二次探测定理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#莫比乌斯反演"><span class="nav-number">1.4.</span> <span class="nav-text">莫比乌斯反演</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#莫比乌斯反演函数"><span class="nav-number">1.4.1.</span> <span class="nav-text">莫比乌斯反演函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性质"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#莫比乌斯反演定理"><span class="nav-number">1.4.2.</span> <span class="nav-text">莫比乌斯反演定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些例题"><span class="nav-number">1.4.3.</span> <span class="nav-text">一些例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-1"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Problem 1.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-2"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">Problem 2.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Min-25-筛"><span class="nav-number">1.5.</span> <span class="nav-text">Min_25 筛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#筛质数的答案"><span class="nav-number">1.5.1.</span> <span class="nav-text">筛质数的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#筛所有数的答案"><span class="nav-number">1.5.2.</span> <span class="nav-text">筛所有数的答案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于实现方面的细节"><span class="nav-number">1.5.3.</span> <span class="nav-text">关于实现方面的细节</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Harry_bh</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="50" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'Wsqi03pgn8IAmuT2vylBCls3-gzGzoHsz',
+    appKey: 'q0kSgV6jcxyhMKJzD3OAN9ob',
+    placeholder: 'o(∩_∩)o',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
